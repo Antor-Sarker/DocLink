@@ -1,7 +1,9 @@
+import DoctorList from "./components/doctorList/doctorList";
+
 export default function Home() {
   return (
     <div>
-      <h1>page</h1>
+      <DoctorList/>
     </div>
   );
 }
