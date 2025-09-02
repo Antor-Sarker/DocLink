@@ -19,9 +19,6 @@ export default function DoctorList() {
     })();
   }, [page]);
 
-  console.log(doctorsInfo);
-  console.log(doctorsInfo?.data);
-
   function handelPageChange(num) {
     if (num < 1 || num > doctorsInfo?.totalPages) return;
     else {
@@ -32,14 +29,14 @@ export default function DoctorList() {
     }
   }
   return (
-    <div className="" ref={sectionRef}>
-      <div className="w-full bg-white shadow-sm sticky top-[64px] z-40">
+    <div ref={sectionRef}>
+      <div className="w-full bg-white shadow-sm top-[64px] z-40">
         <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           {/* Search box */}
           <Search setDoctorsInfo={setDoctorsInfo} />
 
           {/* Filters */}
-          <Filter />
+          <Filter setDoctorsInfo={setDoctorsInfo} />
         </div>
       </div>
       <div className="p-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
@@ -66,7 +63,7 @@ export default function DoctorList() {
 
       {/* pagination for change page number */}
       {/*when doctos not found show message ande hide pagination */}
-      {doctorsInfo.data.length === 0 ? (
+      {doctorsInfo?.data?.length === 0 ? (
         <div className="text-red-500 text-center text-xl">
           Doctors not found!
         </div>
