@@ -3,9 +3,11 @@ import { getDoctorList } from "@/app/actions/doctorList/getDoctorList";
 import { CalendarDateRangeIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useEffect, useRef, useState } from "react";
 import Pagination from "../pagination/pagination";
+import Filter from "./filter";
+import Search from "./search";
 
 export default function DoctorList() {
-  const [doctorsInfo, setDoctorsUnfo] = useState(null);
+  const [doctorsInfo, setDoctorsInfo] = useState(null);
   const [page, setPage] = useState(1);
   const sectionRef = useRef(null);
 
@@ -13,7 +15,7 @@ export default function DoctorList() {
     (async function () {
       // Secure data fetching with Server Action
       const data = await getDoctorList(page);
-      setDoctorsUnfo(data);
+      setDoctorsInfo(data);
     })();
   }, [page]);
 
@@ -31,6 +33,15 @@ export default function DoctorList() {
   }
   return (
     <div className="" ref={sectionRef}>
+      <div className="w-full bg-white shadow-sm sticky top-[64px] z-40">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          {/* Search box */}
+          <Search setDoctorsInfo={setDoctorsInfo} />
+
+          {/* Filters */}
+          <Filter />
+        </div>
+      </div>
       <div className="p-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {doctorsInfo?.data?.map((doctor) => (
           <div
@@ -54,11 +65,18 @@ export default function DoctorList() {
       </div>
 
       {/* pagination for change page number */}
-      <Pagination
-        currentPage={doctorsInfo?.page}
-        totalPages={doctorsInfo?.totalPages}
-        handelPageChange={handelPageChange}
-      />
+      {/*when doctos not found show message ande hide pagination */}
+      {doctorsInfo.data.length === 0 ? (
+        <div className="text-red-500 text-center text-xl">
+          Doctors not found!
+        </div>
+      ) : (
+        <Pagination
+          currentPage={doctorsInfo?.page}
+          totalPages={doctorsInfo?.totalPages}
+          handelPageChange={handelPageChange}
+        />
+      )}
     </div>
   );
 }
