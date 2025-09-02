@@ -1,9 +1,9 @@
 "use server";
-export async function getDoctorList() {
+export async function getDoctorList(page) {
   try {
     // fetch Doctor List data
     const res = await fetch(
-      "https://appointment-manager-node.onrender.com/api/v1//doctors",
+      `https://appointment-manager-node.onrender.com/api/v1//doctors?page=${page}&limit=${15}`,
       {
         cache: "force-cache",
         next: { revalidate: 300 },

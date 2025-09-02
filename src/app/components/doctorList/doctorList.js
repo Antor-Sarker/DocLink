@@ -1,22 +1,36 @@
 "use client";
 import { getDoctorList } from "@/app/actions/doctorList/getDoctorList";
 import { CalendarDateRangeIcon, UserIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Pagination from "../pagination/pagination";
 
 export default function DoctorList() {
   const [doctorsInfo, setDoctorsUnfo] = useState(null);
+  const [page, setPage] = useState(1);
+  const sectionRef = useRef(null);
+
   useEffect(() => {
     (async function () {
       // Secure data fetching with Server Action
-      const data = await getDoctorList();
+      const data = await getDoctorList(page);
       setDoctorsUnfo(data);
     })();
-  }, []);
+  }, [page]);
+
   console.log(doctorsInfo);
   console.log(doctorsInfo?.data);
 
+  function handelPageChange(num) {
+    if (num < 1 || num > doctorsInfo?.totalPages) return;
+    else {
+      //update page state
+      setPage(num);
+      // Scroll to the top of the section or page
+      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }
   return (
-    <div className="">
+    <div className="" ref={sectionRef}>
       <div className="p-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {doctorsInfo?.data?.map((doctor) => (
           <div
@@ -38,6 +52,13 @@ export default function DoctorList() {
           </div>
         ))}
       </div>
+
+      {/* pagination for change page number */}
+      <Pagination
+        currentPage={doctorsInfo?.page}
+        totalPages={doctorsInfo?.totalPages}
+        handelPageChange={handelPageChange}
+      />
     </div>
   );
 }
