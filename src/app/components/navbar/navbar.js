@@ -14,7 +14,7 @@ export default function Navbar() {
   const pathName = usePathname();
 
   return (
-    <nav className="bg-white p-4 flex items-center justify-between shadow-md">
+    <nav className="fixed w-full z-10 bg-white p-4 flex items-center justify-between shadow-lg">
       {/* Left: Title & Hamburger Menu */}
       <div className="flex items-center space-x-4">
         {/* Hamburger button for mobile */}
