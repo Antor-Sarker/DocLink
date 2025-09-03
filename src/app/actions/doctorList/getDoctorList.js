@@ -3,7 +3,7 @@ export async function getDoctorList(page) {
   try {
     // fetch Doctor List data
     const res = await fetch(
-      `https://appointment-manager-node.onrender.com/api/v1//doctors?page=${page}&limit=${15}`,
+      `https://appointment-manager-node.onrender.com/api/v1/doctors?page=${page}&limit=${15}`,
       { cache: "no-store" }
     );
     if (!res.ok) {
