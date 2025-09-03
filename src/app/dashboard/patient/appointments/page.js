@@ -89,7 +89,9 @@ export default function Appointments() {
             className="outline-none text-sm bg-transparent"
           >
             {" "}
-            <option value={"PENDING"}selected>status</option>
+            <option value="PENDING" selected>
+              status
+            </option>
             <option value="PENDING">Pending</option>
             <option value="CANCELLED">Cancelled</option>
             <option value="COMPLETED">Completed</option>
