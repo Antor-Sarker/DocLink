@@ -11,12 +11,13 @@ import { useState } from "react";
 
 export default function LoginForm() {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { userInfo, setUserInfo } = useAuth();
   const router = useRouter();
 
   async function handelFormSubmit(event) {
     event.preventDefault();
-
+    setLoading(true);
     const formData = new FormData(event.currentTarget);
     const userData = await login(formData);
 
@@ -27,6 +28,7 @@ export default function LoginForm() {
         `/dashboard/${formData?.get("role").toLocaleLowerCase()}/profile`
       );
     } else {
+      setLoading(false);
       setError("Invalid credentials!");
     }
   }
@@ -95,10 +97,11 @@ export default function LoginForm() {
 
           {/* handel LogIn */}
           <button
+            disabled={loading}
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-700 cursor-pointer"
           >
-            Login
+            Login{loading && "...."}
           </button>
         </form>
       </div>
