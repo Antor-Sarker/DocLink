@@ -1,4 +1,5 @@
 "use server";
+
 export default async function registerUser(formData, isDoctor) {
   try {
     //register doctor or patient with dynamic url
@@ -14,7 +15,7 @@ export default async function registerUser(formData, isDoctor) {
     );
 
     if (res?.status === 201) {
-      redirect("/auth/login");
+      return true
     } else {
       return false;
     }

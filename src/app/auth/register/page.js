@@ -7,6 +7,7 @@ import {
   PhotoIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Register() {
@@ -22,7 +23,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
   const isDoctor = tab === "doctor";
-
+  const route = useRouter();
   // validation rules
   const validate = () => {
     let newErrors = {};
@@ -82,6 +83,9 @@ export default function Register() {
 
     // call register api from server Action for security
     const res = await registerUser(payload, isDoctor);
+    if (res) route.replace("/auth/login");
+    //error message
+    else setIsSuccess(res);
 
     //clear form
     setForm({
@@ -91,9 +95,6 @@ export default function Register() {
       specialization: "",
       photo_url: "",
     });
-
-    //error message
-    setIsSuccess(res);
 
     //not loading
     setLoading(false);
