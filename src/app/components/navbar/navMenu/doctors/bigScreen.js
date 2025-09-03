@@ -6,16 +6,6 @@ export function DoctorMenuBigScreen() {
   return (
     <div className="hidden md:flex flex-grow justify-center space-x-8">
       <Link
-        href="/dashboard/doctor/appointmentList"
-        className={`text-lg ${
-          pathName === "/dashboard/doctor/appointmentList"
-            ? "text-green-500"
-            : "text-gray-700"
-        } hover:text-green-600 transition duration-300`}
-      >
-        Appointment List
-      </Link>
-      <Link
         href="/dashboard/doctor/manageAppointment"
         className={`text-lg ${
           pathName === "/dashboard/doctor/manageAppointment"

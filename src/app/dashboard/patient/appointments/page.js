@@ -67,7 +67,7 @@ export default function Appointments() {
       const data = await getAppointments(userInfo?.token);
       setAppointmentsData(data);
     })();
-  }, [userInfo.token, isUpdate]);
+  }, [userInfo?.token, isUpdate]);
 
   async function handeFilter(status) {
     const data = await getAppointments(userInfo?.token, status);
@@ -82,14 +82,14 @@ export default function Appointments() {
 
       {/* filter with status */}
       <div className="flex w-full sm:w-auto justify-end gap-3 py-3">
-        <div className="flex items-center border border-gray-400 text-gray-700 rounded-2xl px-3 py-2 shadow-gray-200 shadow-sm bg-white">
+        <div className="flex items-center border border-gray-400 text-gray-700 rounded-2xl px-3 py-2 shadow-gray-200 shadow-sm bg-yellow-100">
           <FunnelIcon className="w-5 h-5 text-gray-400 mr-2" />
           <select
             onChange={(e) => handeFilter(e.target.value)}
-            className="outline-none text-sm bg-transparent"
+            className="outline-none text-sm"
           >
             {" "}
-            <option value="PENDING" selected>
+            <option value="PENDING" selected disabled className="bg-bgue-300">
               status
             </option>
             <option value="PENDING">Pending</option>
