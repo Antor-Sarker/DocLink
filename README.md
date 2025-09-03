@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DocLink
+# 🩺 Doctor Appointment Management System
 
-## Getting Started
+A full-featured **Next.js** application for managing doctor appointments, designed for both patients and doctors.  
+The project is fully responsive, with features including authentication, search, filtering, booking appointments, and managing patient appointments.
 
-First, run the development server:
+---
+## Live Demo: [https://doc-link-gold.vercel.app/](https://doc-link-gold.vercel.app/)
 
+
+## 🌟 Features
+
+### General
+- **Responsive Navbar:** Supports both mobile and desktop devices.
+- **Heroicons Integration:** Beautiful and consistent icons across the app.
+
+### Doctors
+- **Doctor Cards:** Display profile photo, name, and specialization.
+- **Pagination:** Navigate through doctor cards efficiently.
+- **Search:** Implemented search with debounce to improve performance.
+- **Filtering:** Filter doctors based on specialization.
+
+### Authentication
+- **Login & Registration:** With form validation.
+- **Role-based Session Management:** Using Context API and localStorage.
+- **Authentication Guard:** Protect `/dashboard` routes.
+
+### Appointments
+- **Appointment Booking:** Book appointments with date selection.
+- **Appointment Details View:** View status and cancel appointments.
+- **Status Filter:** Filter patient appointments based on status.
+
+### Profile
+- **Responsive Profile Page:** Displays user information and role
+
+---
+
+## 🛠 Tech Stack
+
+- **Next.js 15**   
+- **Tailwind CSS** for styling   
+- **Heroicons** for icons  
+- **Context API & localStorage** for session management  
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Antor-Sarker/DocLink.git
+cd DocLink
+```
+---
+
+### 2. Install Dependencies
+```bash
+npm install
+# or
+yarn install
+```
+---
+
+### 4. Run the Development Server
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The app will run at: http://localhost:3000
+---
