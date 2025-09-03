@@ -1,7 +1,10 @@
 "use client";
 import { getDoctorList } from "@/app/actions/doctorList/getDoctorList";
+import { useAuth } from "@/app/context/auth/authContext";
 import { CalendarDateRangeIcon, UserIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { Bounce, toast } from "react-toastify";
 import Pagination from "../pagination/pagination";
 import AppointmentBookModal from "./bookModal";
 import Filter from "./filter";
@@ -13,6 +16,8 @@ export default function DoctorList() {
   const [isOpenBookModal, setIsOpenBookModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const sectionRef = useRef(null);
+  const { userInfo } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     (async function () {
@@ -35,6 +40,21 @@ export default function DoctorList() {
 
   //book appointment by patient
   function handelBookAppointment(doctorInfo) {
+    if (!userInfo) {
+      toast.error("please login for Book appointment!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+      router.push("/auth/login");
+    }
+
     setModalData(doctorInfo);
     setIsOpenBookModal(true);
   }
