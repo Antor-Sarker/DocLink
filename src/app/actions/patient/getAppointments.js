@@ -1,8 +1,8 @@
 "use server";
-export async function getAppointments(token) {
+export async function getAppointments(token,status=null) {
   try {
     // fetch Appointments List data
-    const res = await fetch(
+    const res = await fetch(status? `https://appointment-manager-node.onrender.com/api/v1/appointments/patient?status=${status}`:
       `https://appointment-manager-node.onrender.com/api/v1/appointments/patient`,
       {
         method: "GET",

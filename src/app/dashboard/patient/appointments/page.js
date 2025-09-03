@@ -3,6 +3,7 @@
 import { getAppointments } from "@/app/actions/patient/getAppointments";
 import { statusUpdate } from "@/app/actions/statusUpdate";
 import { useAuth } from "@/app/context/auth/authContext";
+import { FunnelIcon } from "@heroicons/react/24/outline";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 
@@ -60,6 +61,7 @@ export default function Appointments() {
   const [open, setOpen] = useState(false);
 
   const { userInfo } = useAuth();
+
   useEffect(() => {
     (async function () {
       const data = await getAppointments(userInfo?.token);
@@ -67,11 +69,33 @@ export default function Appointments() {
     })();
   }, [userInfo.token, isUpdate]);
 
+  async function handeFilter(status) {
+    const data = await getAppointments(userInfo?.token, status);
+    setAppointmentsData(data);
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-2xl font-bold mb-6 text-gray-600 text-center">
         My Appointments({appointmentsData?.total})
       </h1>
+
+      {/* filter with status */}
+      <div className="flex w-full sm:w-auto justify-end gap-3 py-3">
+        <div className="flex items-center border border-gray-400 text-gray-700 rounded-2xl px-3 py-2 shadow-gray-200 shadow-sm bg-white">
+          <FunnelIcon className="w-5 h-5 text-gray-400 mr-2" />
+          <select
+            onChange={(e) => handeFilter(e.target.value)}
+            className="outline-none text-sm bg-transparent"
+          >
+            {" "}
+            <option selected>status</option>
+            <option value="PENDING">Pending</option>
+            <option value="CANCELLED">Cancelled</option>
+            <option value="COMPLETED">Completed</option>
+          </select>
+        </div>
+      </div>
 
       {/* Grid for multiple cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -84,6 +108,11 @@ export default function Appointments() {
             setOpen={setOpen}
           />
         ))}
+        {appointmentsData?.data?.length === 0 && (
+          <div className="text-center tex-xl text-red-500">
+            filter result is empty!
+          </div>
+        )}
       </div>
     </div>
   );
