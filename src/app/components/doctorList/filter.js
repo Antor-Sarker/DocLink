@@ -21,11 +21,11 @@ export default function Filter({ setDoctorsInfo }) {
 
   return (
     <div className="flex w-full sm:w-auto items-center gap-3">
-      <div className="flex items-center border border-gray-400 text-gray-700 rounded-2xl px-3 py-2 shadow-gray-200 shadow-sm bg-white">
+      <div className="flex items-center border border-gray-400 text-gray-700 rounded-2xl px-3 py-2 shadow-gray-200 shadow-sm bg-yellow-100">
         <FunnelIcon className="w-5 h-5 text-gray-400 mr-2" />
         <select
           onChange={(e) => handeFilter(e.target.value)}
-          className="outline-none text-sm bg-transparent"
+          className="outline-none text-sm bg-transparent cursor-pointer"
         >
           <option value="all">All Specializations</option>
           {specializations?.map((name, index) => (
