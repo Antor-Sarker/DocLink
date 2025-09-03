@@ -4,10 +4,7 @@ export async function getDoctorList(page) {
     // fetch Doctor List data
     const res = await fetch(
       `https://appointment-manager-node.onrender.com/api/v1//doctors?page=${page}&limit=${15}`,
-      {
-        cache: "force-cache",
-        next: { revalidate: 300 },
-      }
+      { cache: "no-store" }
     );
     if (!res.ok) {
       console.log(
