@@ -1,3 +1,4 @@
+"use server";
 export async function login(formData) {
   try {
     const credentials = {
@@ -15,7 +16,10 @@ export async function login(formData) {
       }
     );
     const authData = await res.json();
-    return authData;
+    if (authData?.data?.user?.role === credentials?.role) return authData;
+    else {
+      return { success: false };
+    }
   } catch (error) {
     return error;
   }
