@@ -1,5 +1,6 @@
 "use client";
 import { login } from "@/app/actions/auth/login";
+import { useAuth } from "@/app/context/auth/authContext";
 import {
   AtSymbolIcon,
   LockClosedIcon,
@@ -10,19 +11,23 @@ import { useState } from "react";
 
 export default function LoginForm() {
   const [error, setError] = useState(null);
-    const router = useRouter()
+  const { userInfo, setUserInfo } = useAuth();
+  const router = useRouter();
+
   async function handelFormSubmit(event) {
     event.preventDefault();
-    
+
     const formData = new FormData(event.currentTarget);
     const userData = await login(formData);
 
     if (userData?.success) {
-      console.log(userData.data);
-      router.push(`/dashboard/${formData?.get("role").toLocaleLowerCase()}/profile`)
-
+      localStorage.setItem("authInfo", JSON.stringify(userData?.data));
+      setUserInfo(userData?.data);
+      router.push(
+        `/dashboard/${formData?.get("role").toLocaleLowerCase()}/profile`
+      );
     } else {
-      setError("Invalid credentials!")
+      setError("Invalid credentials!");
     }
   }
   return (
@@ -34,7 +39,7 @@ export default function LoginForm() {
 
         <form className="space-y-4" onSubmit={handelFormSubmit}>
           {/* Email */}
-            <div className="text-red-500 text-center text-lg">{error}</div>
+          <div className="text-red-500 text-center text-lg">{error}</div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
