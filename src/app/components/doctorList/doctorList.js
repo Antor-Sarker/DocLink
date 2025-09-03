@@ -3,12 +3,15 @@ import { getDoctorList } from "@/app/actions/doctorList/getDoctorList";
 import { CalendarDateRangeIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useEffect, useRef, useState } from "react";
 import Pagination from "../pagination/pagination";
+import AppointmentBookModal from "./bookModal";
 import Filter from "./filter";
 import Search from "./search";
 
 export default function DoctorList() {
   const [doctorsInfo, setDoctorsInfo] = useState(null);
   const [page, setPage] = useState(1);
+  const [isOpenBookModal, setIsOpenBookModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -19,6 +22,7 @@ export default function DoctorList() {
     })();
   }, [page]);
 
+  //change page number(pagination)
   function handelPageChange(num) {
     if (num < 1 || num > doctorsInfo?.totalPages) return;
     else {
@@ -28,6 +32,13 @@ export default function DoctorList() {
       sectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
+
+  //book appointment by patient
+  function handelBookAppointment(doctorInfo) {
+    setModalData(doctorInfo);
+    setIsOpenBookModal(true);
+  }
+
   return (
     <div ref={sectionRef}>
       <div className="w-full bg-white shadow-sm top-[64px] z-40">
@@ -53,12 +64,25 @@ export default function DoctorList() {
             <p className="text-sm text-gray-500 mb-4">
               {doctor?.specialization}
             </p>
-            <button className="flex items-center gap-2 bg-[#58786e] text-white px-4 py-2 rounded-xl hover:bg-[#3bb68f] transition cursor-pointer">
+
+            {/* book appointment by patient */}
+            <button
+              className="flex items-center gap-2 bg-[#58786e] text-white px-4 py-2 rounded-xl hover:bg-[#3bb68f] transition cursor-pointer"
+              onClick={() => handelBookAppointment(doctor)}
+            >
               <CalendarDateRangeIcon className="w-4 h-4" />
               Book Appointment
             </button>
           </div>
         ))}
+
+        {/* modal appointment book  */}
+        {isOpenBookModal && (
+          <AppointmentBookModal
+            modalData={modalData}
+            setIsOpenBookModal={setIsOpenBookModal}
+          />
+        )}
       </div>
 
       {/* pagination for change page number */}

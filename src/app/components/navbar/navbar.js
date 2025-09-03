@@ -78,11 +78,12 @@ export default function Navbar() {
       )}
 
       {/* Mobile Menu (collapsible) */}
-      {isMenuOpen && userInfo?.user?.role === "DOCTOR" ? (
-        <DoctorMenuSmallScreen setIsMenuOpen={setIsMenuOpen} />
-      ) : (
-        <PatientMenuSmallScreen setIsMenuOpen={setIsMenuOpen} />
-      )}
+      {isMenuOpen &&
+        (userInfo?.user?.role === "DOCTOR" ? (
+          <DoctorMenuSmallScreen setIsMenuOpen={setIsMenuOpen} />
+        ) : (
+          <PatientMenuSmallScreen setIsMenuOpen={setIsMenuOpen} />
+        ))}
     </nav>
   );
 }
