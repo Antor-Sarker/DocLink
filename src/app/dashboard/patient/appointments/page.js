@@ -64,7 +64,7 @@ export default function Appointments() {
 
   useEffect(() => {
     (async function () {
-      const data = await getAppointments(userInfo?.token);
+      const data = await getAppointments(userInfo?.token,"ALL");
       setAppointmentsData(data);
     })();
   }, [userInfo?.token, isUpdate]);
@@ -89,8 +89,8 @@ export default function Appointments() {
             className="outline-none text-sm"
           >
             {" "}
-            <option value="PENDING" selected disabled className="bg-bgue-300">
-              status
+            <option value="ALL"  className="bg-bgue-300">
+              All Status
             </option>
             <option value="PENDING">Pending</option>
             <option value="CANCELLED">Cancelled</option>

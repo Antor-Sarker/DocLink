@@ -1,7 +1,7 @@
 "use server";
-export async function statusUpdate(data,token) {
+export async function statusUpdate(data, token) {
   try {
-    // fupdate Appointments status 
+    // fupdate Appointments status
     const res = await fetch(
       `https://appointment-manager-node.onrender.com/api/v1/appointments/update-status`,
       {
