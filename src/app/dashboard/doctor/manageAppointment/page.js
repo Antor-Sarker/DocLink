@@ -1,6 +1,7 @@
 "use client";
 import { getAppointments } from "@/app/actions/manageAppointment/getAppointments";
 import { statusUpdate } from "@/app/actions/statusUpdate";
+import AppointmentFilter from "@/app/components/filter/appointmentFilter";
 import { useAuth } from "@/app/context/auth/authContext";
 import { CheckBadgeIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
@@ -31,6 +32,16 @@ export default function ManageAppointment() {
 
   return (
     <div className="w-full px-4 mb-20">
+      <div className="flex justify-center py-4 space-x-5">
+        <AppointmentFilter
+          setAppointmentsData={setAppointmentsData}
+          filterBy="date"
+        />
+        <AppointmentFilter
+          setAppointmentsData={setAppointmentsData}
+          filterBy="status"
+        />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
         {appointmentsData?.data?.map((appointment) => (
           <div
@@ -55,9 +66,8 @@ export default function ManageAppointment() {
               Schedule: {appointment?.date?.split("T")[0]}
             </p>
             <p className="text-sm text-gray-600">
-              Current Status: <span className=" text-blue-600">
-                {appointment?.status}
-                </span>
+              Current Status:{" "}
+              <span className=" text-blue-600">{appointment?.status}</span>
             </p>
 
             {/* Update status option for Doctor */}
@@ -94,6 +104,11 @@ export default function ManageAppointment() {
             </div>
           </div>
         ))}
+
+        {/* when filter dau empty */}
+        {appointmentsData?.data?.length === 0 && (
+          <div className="text-red-500 text-center text-xl">Filter Data not found!</div>
+        )}
       </div>
     </div>
   );
