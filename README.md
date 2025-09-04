@@ -11,8 +11,7 @@ The project is fully responsive, with features including authentication, search,
 ## 🌟 Features
 
 ### General
-- **Responsive Navbar:** Supports both mobile and desktop devices.
-- **Heroicons Integration:** Beautiful and consistent icons across the app.
+- **Responsive Design:** Supports both mobile and desktop devices.
 
 ### Doctors
 - **Doctor Cards:** Display profile photo, name, and specialization.
@@ -25,10 +24,18 @@ The project is fully responsive, with features including authentication, search,
 - **Role-based Session Management:** Using Context API and localStorage.
 - **Authentication Guard:** Protect `/dashboard` routes.
 
-### Appointments
+### Patient Features
 - **Appointment Booking:** Book appointments with date selection.
 - **Appointment Details View:** View status and cancel appointments.
 - **Status Filter:** Filter patient appointments based on status.
+#### 1. Appointment List for Doctors Dashboard
+- **Comprehensive View:** Displays a complete list of all appointments including patient details, scheduled times, and current status.  
+- **Date Filtering:** Filter appointments by a specific date for quick lookup.  
+- **Status Filtering:** Quickly filter appointments by status (`Pending`, `Completed`, `Cancelled`) for better organization.  
+
+#### 2. Appointment Management for Doctor
+- **Mark as Completed:** Doctors can mark appointments as completed, with real-time updates reflected in the UI.  
+- **Mark as Cancelled:** Cancel appointments directly, with real-time UI updates.   
 
 ### Profile
 - **Responsive Profile Page:** Displays user information and role
